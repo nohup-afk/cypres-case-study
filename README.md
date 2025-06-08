@@ -36,7 +36,7 @@ npm install
 ### Create local file file ENV Variable 
 ``` cypress.env.json
 ```{
-    "BASE_URL": "https://dealls.com/",
+    "BASE_URL": "your url",
     "USER_ID": "testuser@mail.com",
     "USER_PWD": "123456"
 }```
