@@ -35,10 +35,12 @@ npm run cy:verify
 ```
 
 ### Create local file file ENV Variable 
-cypress.env.json
+ cypress.env.json
+```json
 {
     "BASE_URL": "your url",
     "USER_ID": "testuser@mail.com",
     "USER_PWD": "123456"
 }
+```
 
