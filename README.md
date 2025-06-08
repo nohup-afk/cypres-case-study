@@ -27,6 +27,17 @@ https://nodejs.org/download/release/
 ### Install Cypress
 To install Cypress, run the following command in your project directory:
 ```sh
-npm install cypress --save-dev
+npm install
 ```
+### Validate Cypress 
+```npm run cy:verify
+```
+
+### Create local file file ENV Variable 
+``` cypress.env.json
+```{
+    "BASE_URL": "https://dealls.com/",
+    "USER_ID": "testuser@mail.com",
+    "USER_PWD": "123456"
+}```
 
