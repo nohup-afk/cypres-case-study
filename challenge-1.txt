@@ -1,0 +1,89 @@
+a. Functional Testing
+
+    Validate that the feature meets the bussiness requirements 
+
+    Includes positive and negative test cases, edge cases, and data validation within scope test plan with new feature Mentoring
+
+b. Integration Testing
+
+    Test API ensure the feature integrates correctly with other modules or external systems.
+
+c. Regression Testing
+
+    Run a suite of existing automated and manual tests to confirm the new feature doesn’t break existing functionality when Mentoring in deploy to Production
+
+d. UI/UX Testing
+
+    Evaluate the user interface for responsiveness, usability, and consistency across devices and browsers.
+
+e. Performance Testing
+
+    Analyze load handling, response time, and system behavior under stress.
+
+f. Security Testing
+
+    Identify vulnerabilities, access control issues, and potential exploits.
+
+g. User Acceptance Testing (UAT)
+
+    Collaborate with end users or stakeholders to validate the feature in a near-production environment.
+
+
+Test Environments
+
+a. Development Environment
+
+    Unit and basic integration tests run as part of CI pipelines.
+
+b. QA/Staging Environment
+
+    Full test suite execution.
+
+    Simulates production as closely as possible (with mock data or masked production data).
+
+c. Pre-Production/UAT Environment
+
+    Stakeholder validation.
+
+    Performance and final regression testing.
+
+d. Production (Monitoring/Smoke Testing)
+
+    Post-deployment validation using smoke tests and daily health check monitoring.
+
+Scenario: Successful registration with valid details 
+    Given user open dealls page
+    Given user click "Daftar"
+    When user in sign-up page clicks the "Register" button
+    And enters a valid username
+    And fill form talent 
+    Then the user should see a success message
+    And should be redirected to the login page
+
+    example: valid Credentials
+    | username | jobStatus | phone | email | education | experience | optional | 
+    | Doom     | Hero      | +69   | user@ | testing   | Newbie     | -        | 
+
+
+    example: valid Credentials
+    | username | jobStatus | phone | email | education | experience | optional | 
+    | Doom     | Hero      | +69   | user@ | testing   | Newbie     | -        | 
+
+
+Scenario: Validate User Able to Click Top Header Mentoring
+     Given user open dealls page
+     Given user click "Mentoring"
+     Then user landing On Mentoring Page
+
+Scenario: Validate User able to Explore Mentor
+     Given user open dealls page
+     Given user click "Mentoring"
+     When user landing On Mentoring Page
+     Then user able to Click available Mentor from list 
+
+Scenario: Validate User able to search mentor based industry
+     Given user open dealls page
+     * user click "Mentoring"
+     * user landing On Mentoring Page
+     When user input <industry>
+     Then user able to see based on specific industry

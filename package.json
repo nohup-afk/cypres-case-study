@@ -1,0 +1,43 @@
+{
+  "name": "testing_cypress_famework",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "prettier-format": "prettier --config .prettierrc **/*.js --write && git add .",
+    "e2e": "cypress run",
+    "e2e:chrome": "cypress run --browser chrome",
+    "e2e:record": "cypress run --record",
+    "e2e:record:chrome": "cypress run --record --browser chrome",
+    "e2e:record:edge": "cypress run --record --browser edge",
+    "e2e:record:firefox": "cypress run --record --browser firefox",
+    "e2e:login": "cypress run --spec 'cypress/e2e/1-login/'",
+    "cy:verify": "cypress verify",
+    "cy:info": "cypress info",
+    "cy:version": "cypress version",
+    "cy:cache:list": "cypress cache list",
+    "cy:run": "cypress run",
+    "cy:run:record": "cypress run --record",
+    "cy:open": "cypress open",
+    "cy:e2e": "node run_script.js"
+  },
+  "author": "Aziz",
+  "license": "",
+  "devDependencies": {
+    "@eslint/js": "^9.14.0",
+    "@faker-js/faker": "^8.4.1",
+    "allure-commandline": "^2.29.0",
+    "allure-cypress": "^3.0.8",
+    "cypress": "^13.17.0",
+    "eslint": "^9.14.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-cypress": "^4.1.0",
+    "fs-extra": "^11.2.0",
+    "globals": "^15.12.0",
+    "husky": "^9.1.7",
+    "prettier": "3.3.3"
+  },
+  "dependencies": {
+    "allure-js-commons": "^3.0.9",
+    "serve": "^14.2.4"
+  }
+}

@@ -1,0 +1,43 @@
+Challenge 3: Exploration & Bug
+example user unable to login
+1. Investigation Steps
+
+    Understand the Problem Some users can’t log in sometimes. Doesn’t happen to everyone or every time.
+
+2. Check the Logs
+
+    Look at server logs for failed login attempts.
+
+    Check for:
+
+        Error messages (e.g., "401 Unauthorized", "Token expired")
+
+        Affected usernames
+
+        Time of failure
+
+        IP addresses or devices
+
+3. Try to Reproduce It
+
+    Use the same browser/device as the user.
+
+    Try logging in:
+
+        After clearing cookies
+
+        In incognito mode
+
+        On slow network
+
+        Multiple times in a row
+
+4. Test Possible Causes
+
+    Try fixing common issues:
+
+        Update cookie settings (SameSite, Secure)
+
+        Check session timeout settings
+
+        Add a small delay before redirecting after login
