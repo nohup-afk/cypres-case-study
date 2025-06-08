@@ -30,14 +30,15 @@ To install Cypress, run the following command in your project directory:
 npm install
 ```
 ### Validate Cypress 
-```npm run cy:verify
+```sh
+npm run cy:verify
 ```
 
 ### Create local file file ENV Variable 
-``` cypress.env.json
-```{
+cypress.env.json
+{
     "BASE_URL": "your url",
     "USER_ID": "testuser@mail.com",
     "USER_PWD": "123456"
-}```
+}
 
