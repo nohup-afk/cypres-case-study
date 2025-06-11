@@ -44,6 +44,9 @@ jobs:
           if [ -f "cypress/support/e2e.backup.js" ]; then
             mv cypress/support/e2e.backup.js cypress/support/e2e.js
           fi
+          
+      - name: Test site connectivity
+        run: curl -Iv https://dealls.com
 
       - name: Run Cypress E2E
         env:
