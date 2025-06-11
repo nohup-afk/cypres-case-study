@@ -25,11 +25,6 @@ jobs:
     container:
       image: cypress/browsers:node-20.14.0-chrome-126.0.6478.114-1-ff-127.0.1-edge-126.0.2592.61-1
       options: --user 1001
-    env:
-      URL_PRODUCTION: https://dealls.com/
-      URL_STAGING: ${{ secrets.URL_STAGING }}
-      USER_PROD: testuser@mail.com
-      USER_PWD_PROD: 12345678
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -57,20 +52,11 @@ jobs:
             mv cypress/support/e2e.backup.js cypress/support/e2e.js
           fi
 
-      - name: Setup environment variables
-        run: |
-          if [ "${{ github.event.inputs.env }}" = "production" ]; then
-            export CYPRESS_HOST=https://dealls.com/
-            export CYPRESS_USER_ID=test@mail.com
-            export CYPRESS_USER_PWD=12345678
-          elif [ "${{ github.event.inputs.env }}" = "staging" ]; then
-            echo "CYPRESS_HOST=${URL_STAGING}" >> $GITHUB_ENV
-            echo "CYPRESS_USER_ID=${USER_PROD}" >> $GITHUB_ENV
-            echo "CYPRESS_USER_PWD=${USER_PWD_PROD}" >> $GITHUB_ENV
-          fi
-
       - name: Run Cypress E2E
         run: |
+          export CYPRESS_HOST=https://dealls.com/
+          export CYPRESS_USER_ID=test@mail.com
+          export CYPRESS_USER_PWD=12345678
           npm run e2e:chrome 
 
       - name: Upload Cypress Artifacts
