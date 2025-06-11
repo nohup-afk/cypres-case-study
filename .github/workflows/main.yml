@@ -46,11 +46,12 @@ jobs:
           fi
 
       - name: Run Cypress E2E
-        env:
-          export CYPRESS_BASE_URL: https://dealls.com/
-          export CYPRESS_USER_ID: test@mail.com
-          export CYPRESS_USER_PWD: 12345678
-        run: npm run ${{ github.event.inputs.feature }}
+        run: |
+          env \
+            CYPRESS_HOST=https://dealls.com/ \
+            CYPRESS_USER_ID=test@mail.com \
+            CYPRESS_USER_PWD=12345678 \
+            npm run ${{ github.event.inputs.feature }}
 
       - name: Upload Cypress Artifacts
         uses: actions/upload-artifact@v4
