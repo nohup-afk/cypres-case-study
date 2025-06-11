@@ -35,8 +35,8 @@ jobs:
       - name: Verify Cypress
         run: npm run cy:verify
 
-      - name: Test site connectivity
-        run: curl -Iv https://dealls.com
+      # - name: Test site connectivity
+      #   run: curl -Iv https://dealls.com
 
       - name: Restore Cypress Configuration
         run: |
