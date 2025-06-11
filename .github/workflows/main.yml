@@ -60,9 +60,9 @@ jobs:
       - name: Setup environment variables
         run: |
           if [ "${{ github.event.inputs.env }}" = "production" ]; then
-            echo "CYPRESS_HOST=${URL_PRODUCTION}" >> $GITHUB_ENV
-            echo "CYPRESS_USER_ID=${USER_PROD}" >> $GITHUB_ENV
-            echo "CYPRESS_USER_PWD=${USER_PWD_PROD}" >> $GITHUB_ENV
+            export CYPRESS_HOST=https://dealls.com/
+            export CYPRESS_USER_ID=test@mail.com
+            export CYPRESS_USER_PWD=12345678
           elif [ "${{ github.event.inputs.env }}" = "staging" ]; then
             echo "CYPRESS_HOST=${URL_STAGING}" >> $GITHUB_ENV
             echo "CYPRESS_USER_ID=${USER_PROD}" >> $GITHUB_ENV
