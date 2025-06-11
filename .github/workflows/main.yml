@@ -47,7 +47,7 @@ jobs:
 
       - name: Run Cypress E2E
         env:
-          CYPRESS_BASE_URL:'https://dealls.com/'
+          CYPRESS_BASE_URL: 'https://dealls.com/'
         run: echo "CYPRESS_BASE_URL=$CYPRESS_BASE_URL" && npm run ${{ github.event.inputs.feature }}
 
       - name: Upload Cypress Artifacts
