@@ -17,10 +17,6 @@ jobs:
     container:
       image: cypress/browsers:node-20.14.0-chrome-126.0.6478.114-1-ff-127.0.1-edge-126.0.2592.61-1
       options: --user 1001
-    env:
-      CYPRESS_BASE_URL: https://dealls.com/
-      CYPRESS_USER_ID: test@mail.com
-      CYPRESS_USER_PWD: 12345678
 
     steps:
       - name: Checkout code
@@ -48,6 +44,12 @@ jobs:
           if [ -f "cypress/support/e2e.backup.js" ]; then
             mv cypress/support/e2e.backup.js cypress/support/e2e.js
           fi
+
+      - name: Export Cypress Environment Variables
+        run: |
+          echo "CYPRESS_BASE_URL=https://dealls.com/" >> $GITHUB_ENV
+          echo "CYPRESS_USER_ID=test@mail.com" >> $GITHUB_ENV
+          echo "CYPRESS_USER_PWD=12345678" >> $GITHUB_ENV
 
       - name: Run Cypress E2E
         run: npm run ${{ github.event.inputs.feature }}
