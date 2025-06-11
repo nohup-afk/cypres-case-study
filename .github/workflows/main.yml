@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: cypress/included:latest
-      options: --user 1001
+      options: --dns 8.8.8.8 --dns 1.1.1.1
 
     steps:
       - name: Checkout code
