@@ -21,6 +21,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      
+      - name: Fix Permissions
+        run: sudo chmod -R 755 /var/lib/apt/lists/partial
+
+      - name: Resolve Duplicate Configurations
+        run: |
+          sudo sed -i '/microsoft-edge-stable.list/d' /etc/apt/sources.list.d/microsoft-edge.list
 
       - name: Cache node_modules
         uses: actions/cache@v4
