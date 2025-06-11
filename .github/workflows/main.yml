@@ -69,18 +69,9 @@ jobs:
             echo "CYPRESS_USER_PWD=${USER_PWD_PROD}" >> $GITHUB_ENV
           fi
 
-      - name: Ensure curl is installed
-        run: |
-          if ! command -v curl &> /dev/null; then
-            apt-get update && apt-get install -y curl
-          fi
-
       - name: Run Cypress E2E
         run: |
-          npm run e2e:chrome > result_file.txt
-          if grep -q '✖' result_file.txt; then
-            exit 1
-          fi
+          npm run e2e:chrome 
 
       - name: Upload Cypress Artifacts
         uses: actions/upload-artifact@v4
@@ -90,8 +81,3 @@ jobs:
             cypress/screenshots/
             cypress/videos/
             cypress/results/
-
-      - name: Send Test Result (optional)
-        if: always()
-        run: |
-          bash send_test_result.sh || true
