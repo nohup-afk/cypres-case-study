@@ -47,7 +47,7 @@ jobs:
 
       - name: Run Cypress E2E
         env:
-          CYPRESS_HOST: https://dealls.com/
+          CYPRESS_BASE_URL: https://dealls.com/
           CYPRESS_USER_ID: test@mail.com
           CYPRESS_USER_PWD: 12345678
         run: npm run ${{ github.event.inputs.feature }}
