@@ -1,27 +1,97 @@
-name: Front-end CI
+name: Cypress E2E
 
 on:
-    push:
-        branches: [main]
-    pull_request:
-        branches: [main]
+  workflow_dispatch:
+    inputs:
+      feature:
+        description: 'Feature to run'
+        required: true
+        default: 'e2e:chrome'
+        type: choice
+        options:
+          - e2e:chrome
+      env:
+        description: 'Environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
 
 jobs:
-    cypress-test:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Check out repository code
-              uses: actions/checkout@v3
-            - run: npm i
+  cypress-e2e:
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node-20.14.0-chrome-126.0.6478.114-1-ff-127.0.1-edge-126.0.2592.61-1
+      options: --user 1001
+    env:
+      URL_PRODUCTION: https://dealls.com/
+      URL_STAGING: ${{ secrets.URL_STAGING }}
+      USER_PROD: testuser@mail.com
+      USER_PWD_PROD: 12345678
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: run cypress tests in chrome
-              uses: cypress-io/github-action@v5
-              timeout-minutes: 10
-              with:
-                  browser: chrome
-                  record: true
-                  build: npm run build
-                  start: npm start
-                  wait-on: 'http://localhost:3000'
-              env:
-                  CYPRESS_RECORD_KEY: 'https://dealls.com/'
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            /root/.cache/Cypress
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify Cypress
+        run: npm run cy:verify
+
+      - name: Restore Cypress Configuration
+        run: |
+          if [ -f "cypress.config.backup.js" ]; then
+            mv cypress.config.backup.js cypress.config.js
+          fi
+          if [ -f "cypress/support/e2e.backup.js" ]; then
+            mv cypress/support/e2e.backup.js cypress/support/e2e.js
+          fi
+
+      - name: Setup environment variables
+        run: |
+          if [ "${{ github.event.inputs.env }}" = "production" ]; then
+            echo "CYPRESS_HOST=${URL_PRODUCTION}" >> $GITHUB_ENV
+            echo "CYPRESS_USER_ID=${USER_PROD}" >> $GITHUB_ENV
+            echo "CYPRESS_USER_PWD=${USER_PWD_PROD}" >> $GITHUB_ENV
+          elif [ "${{ github.event.inputs.env }}" = "staging" ]; then
+            echo "CYPRESS_HOST=${URL_STAGING}" >> $GITHUB_ENV
+            echo "CYPRESS_USER_ID=${USER_PROD}" >> $GITHUB_ENV
+            echo "CYPRESS_USER_PWD=${USER_PWD_PROD}" >> $GITHUB_ENV
+          fi
+
+      - name: Ensure curl is installed
+        run: |
+          if ! command -v curl &> /dev/null; then
+            apt-get update && apt-get install -y curl
+          fi
+
+      - name: Run Cypress E2E
+        run: |
+          npm run e2e:chrome > result_file.txt
+          if grep -q '✖' result_file.txt; then
+            exit 1
+          fi
+
+      - name: Upload Cypress Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/screenshots/
+            cypress/videos/
+            cypress/results/
+
+      - name: Send Test Result (optional)
+        if: always()
+        run: |
+          bash send_test_result.sh || true
