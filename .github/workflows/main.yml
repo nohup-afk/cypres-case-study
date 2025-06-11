@@ -10,14 +10,6 @@ on:
         type: choice
         options:
           - e2e:chrome
-      env:
-        description: 'Environment'
-        required: true
-        default: 'production'
-        type: choice
-        options:
-          - production
-          - staging
 
 jobs:
   cypress-e2e:
@@ -25,6 +17,11 @@ jobs:
     container:
       image: cypress/browsers:node-20.14.0-chrome-126.0.6478.114-1-ff-127.0.1-edge-126.0.2592.61-1
       options: --user 1001
+    env:
+      CYPRESS_HOST: https://dealls.com/
+      CYPRESS_USER_ID: test@mail.com
+      CYPRESS_USER_PWD: 12345678
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -53,11 +50,7 @@ jobs:
           fi
 
       - name: Run Cypress E2E
-        run: |
-          export CYPRESS_HOST=https://dealls.com/
-          export CYPRESS_USER_ID=test@mail.com
-          export CYPRESS_USER_PWD=12345678
-          npm run e2e:chrome 
+        run: npm run ${{ github.event.inputs.feature }}
 
       - name: Upload Cypress Artifacts
         uses: actions/upload-artifact@v4
