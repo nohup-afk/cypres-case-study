@@ -3,7 +3,9 @@ import home from '../page/homepage'
 let HOST = Cypress.env('HOST')
 let USER_ID = Cypress.env('USER_ID')
 let PASSWORD = Cypress.env('PASSWORD')
-let BASE_URL = Cypress.env('BASE_URL')
+// let BASE_URL = Cypress.env('BASE_URL') // Uncomment this line if you want to use environment variable for BASE_URL
+let BASE_URL = 'https://dealls.com' // Hardcoded URL for testing purposes
+
  
 // This is the main test file for Dealls login functionality
 // It includes tests for landing page validation, login page navigation, and user login functionality
