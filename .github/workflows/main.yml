@@ -29,11 +29,6 @@ jobs:
           else
             echo "Directory /var/lib/apt/lists/partial does not exist. Skipping permission change."
           fi
-
-      - name: Resolve Duplicate Configurations
-        run: |
-          sudo sed -i '/microsoft-edge-stable.list/d' /etc/apt/sources.list.d/microsoft-edge.list
-
       - name: Cache node_modules
         uses: actions/cache@v4
         with:
